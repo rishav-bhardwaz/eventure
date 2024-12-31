@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { Event } from '../types/Event';
 
 interface EventCardProps {

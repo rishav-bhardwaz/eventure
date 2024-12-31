@@ -8,32 +8,32 @@ interface Category {
     {
       id: 1,
       name: "Entertainment",
-      image: "https://unsplash.com/photos/music-band-playing-on-stage-sqJ4tLBiurw",
+      image: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&q=80&w=800",
     },
     {
       id: 2,
       name: "Educational & Business",
-      image: "https://source.unsplash.com/random/200x200/?business",
+      image: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&q=80&w=800",
     },
     {
       id: 3,
       name: "Cultural & Arts",
-      image: "https://source.unsplash.com/random/200x200/?art",
+      image: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&q=80&w=800",
     },
     {
       id: 4,
       name: "Sports & Fitness",
-      image: "https://source.unsplash.com/random/200x200/?sports",
+      image: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&q=80&w=800",
     },
     {
       id: 5,
       name: "Technology & Innovation",
-      image: "https://source.unsplash.com/random/200x200/?technology",
+      image: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&q=80&w=800",
     },
     {
       id: 6,
       name: "Travel & Adventure",
-      image: "https://source.unsplash.com/random/200x200/?travel",
+      image: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?auto=format&fit=crop&q=80&w=800",
     },
   ];
   

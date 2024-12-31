@@ -78,7 +78,7 @@ const EventsSection: React.FC = () => {
 
   return (
     <section className="py-8 px-4 mx-auto max-w-7xl">
-      <h2 className="text-3xl font-bold mb-6">Popular Events in Mumbai</h2>
+      <h2 className="text-3xl font-bold mb-6">Popular Events</h2>
       
       {/* Filters */}
       <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
