@@ -3,7 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateEvent: React.FC = () => {
   const navigate = useNavigate();
-  const [eventDetails, setEventDetails] = useState({
+  const [eventDetails, setEventDetails] = useState<{
+    title: string;
+    category: string;
+    eventType: string;
+    startDate: string;
+    startTime: string;
+    endTime: string;
+    locationType: string;
+    location: string;
+    additionalInfo: string;
+    banner: string | null;
+    ticketing: string;
+    ticketPrice: string;
+  }>({
     title: '',
     category: '',
     eventType: 'Single',
