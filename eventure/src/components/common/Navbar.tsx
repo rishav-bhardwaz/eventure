@@ -22,7 +22,8 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Create Event</button>
+            <button className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">
+              <a href='/create-event'>Create Event</a></button>
             <button className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Login</button>
             <button className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 px-4 py-2 rounded-md text-sm font-medium">Sign Up</button>
           </div>

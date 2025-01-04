@@ -32,7 +32,7 @@ const CreateEvent: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    navigate('/event-review', { state: eventDetails });
+    navigate('/review-event', { state: eventDetails });
   };
 
   return (
