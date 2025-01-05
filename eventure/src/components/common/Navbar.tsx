@@ -1,6 +1,9 @@
 import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 const Navbar: React.FC = () => {
+  const { loginWithRedirect } = useAuth0();
   return (
     <nav className="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,7 +17,7 @@ const Navbar: React.FC = () => {
             </a>
             <div className="hidden md:block ml-10">
               <div className="flex items-baseline space-x-4">
-                <a href="/create-event" className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                <a href="/" className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                 <a href="/events" className="text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Events</a>
                 <a href="/about" className="text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">About</a>
                 <a href="/contact" className="text-gray-300 hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
@@ -24,8 +27,9 @@ const Navbar: React.FC = () => {
           <div className="flex items-center space-x-4">
             <button className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">
               <a href='/create-event'>Create Event</a></button>
-            <button className="text-white hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium">Login</button>
-            <button className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 px-4 py-2 rounded-md text-sm font-medium">Sign Up</button>
+            <button
+            onClick={() => loginWithRedirect()}
+            className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 px-4 py-2 rounded-md text-sm font-medium">Login</button>
           </div>
         </div>
       </div>

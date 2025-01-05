@@ -14,7 +14,8 @@ const EventReview: React.FC = () => {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8 max-w-4xl mx-auto"
+    style={{ paddingTop: 'calc(4rem + 16px)' }}>
       <h1 className="text-2xl font-bold mb-6">Event Review</h1>
       <div className="space-y-4">
         <p><strong>Title:</strong> {state?.title}</p>
