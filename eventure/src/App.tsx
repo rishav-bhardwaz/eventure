@@ -7,7 +7,7 @@ import { Landing } from './pages/Landing';
 import Navbar from './components/common/Navbar';
 import EventReview from './components/event/Eventreview';
 
-Modal.setAppElement('#root'); // Required for accessibility
+Modal.setAppElement('#root');
 
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
@@ -18,7 +18,7 @@ const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    setTimeout(() => setIsModalOpen(true), 0); // Open modal if not authenticated
+    setTimeout(() => setIsModalOpen(true), 0);
     return (
       <>
         <Modal
