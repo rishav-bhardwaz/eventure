@@ -2,180 +2,150 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CreateEvent: React.FC = () => {
-  const navigate = useNavigate();
-  const [eventDetails, setEventDetails] = useState<{
-    title: string;
-    category: string;
-    eventType: string;
-    startDate: string;
-    startTime: string;
-    endTime: string;
-    locationType: string;
-    location: string;
-    additionalInfo: string;
-    banner: string | null;
-    ticketing: string;
-    ticketPrice: string;
-  }>({
+  const [eventDetails, setEventDetails] = useState({
     title: '',
     category: '',
-    eventType: 'Single',
-    startDate: '',
+    eventType: 'Single', // Default to Single
+    startDate: '', // Should be a date input
     startTime: '',
     endTime: '',
-    locationType: 'Real',
+    locationType: 'Real', // Default to Real
     location: '',
     additionalInfo: '',
-    banner: null,
-    ticketing: 'Free',
-    ticketPrice: ''
+    banner: '',
+    ticketing: 'Free', // Default to Free
+    ticketPrice: 0, // Default to 0 for Free events
   });
 
-  const predefinedCategories = ['Conference', 'Workshop', 'Concert', 'Meetup'];
+  const navigate = useNavigate();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setEventDetails({ ...eventDetails, [name]: value });
+    setEventDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
   };
 
-  const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setEventDetails({ ...eventDetails, banner: URL.createObjectURL(e.target.files[0]) });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(eventDetails),
+      });
+
+      if (response.ok) {
+        alert('Event created successfully!');
+        navigate('/'); 
+      } else {
+        const error = await response.json();
+        console.error('Error creating event:', error);
+        alert(`Failed to create event: ${error.error}`);
+      }
+    } catch (err) {
+      console.error('Error during event creation:', err);
+      alert('Something went wrong!');
     }
   };
 
-  const handleSubmit = () => {
-    navigate('/review-event', { state: eventDetails });
-  };
-
   return (
-    <div
-      className="p-8 max-w-4xl mx-auto"
-      style={{ paddingTop: 'calc(4rem + 16px)' }}
-    >
-      <h1 className="text-2xl font-bold mb-6">Create Event</h1>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Event Title</label>
+    <div className="max-w-md mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Create Event</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           name="title"
+          placeholder="Event Title"
           value={eventDetails.title}
-          onChange={handleInputChange}
+          onChange={handleChange}
           className="w-full p-2 border rounded"
+          required
         />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Event Category</label>
-        <select
+        <input
+          type="text"
           name="category"
+          placeholder="Event Category"
           value={eventDetails.category}
-          onChange={handleInputChange}
+          onChange={handleChange}
           className="w-full p-2 border rounded"
-        >
-          <option value="">Select a category</option>
-          {predefinedCategories.map((category) => (
-            <option key={category} value={category}>{category}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Event Type</label>
+          required
+        />
         <select
           name="eventType"
           value={eventDetails.eventType}
-          onChange={handleInputChange}
+          onChange={handleChange}
           className="w-full p-2 border rounded"
+          required
         >
           <option value="Single">Single Event</option>
           <option value="Recurring">Recurring Event</option>
         </select>
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Session</label>
         <input
           type="date"
           name="startDate"
           value={eventDetails.startDate}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded mb-2"
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
         />
-        <div className="flex space-x-2">
-          <input
-            type="time"
-            name="startTime"
-            value={eventDetails.startTime}
-            onChange={handleInputChange}
-            className="flex-1 p-2 border rounded"
-          />
-          <input
-            type="time"
-            name="endTime"
-            value={eventDetails.endTime}
-            onChange={handleInputChange}
-            className="flex-1 p-2 border rounded"
-          />
-        </div>
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Location</label>
+        <input
+          type="time"
+          name="startTime"
+          value={eventDetails.startTime}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="time"
+          name="endTime"
+          value={eventDetails.endTime}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
         <select
           name="locationType"
           value={eventDetails.locationType}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded mb-2"
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
         >
-          <option value="Real">Real</option>
-          <option value="Virtual">Virtual</option>
+          <option value="Real">Real Event</option>
+          <option value="Virtual">Virtual Event</option>
         </select>
-        {eventDetails.locationType === 'Real' ? (
-          <input
-            type="text"
-            name="location"
-            value={eventDetails.location}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-            placeholder="Enter location"
-          />
-        ) : (
-          <input
-            type="url"
-            name="location"
-            value={eventDetails.location}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
-            placeholder="Enter virtual meeting link"
-          />
-        )}
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Additional Information</label>
+        <input
+          type="text"
+          name="location"
+          placeholder="Event Location"
+          value={eventDetails.location}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
+        />
         <textarea
           name="additionalInfo"
+          placeholder="Additional Information (optional)"
           value={eventDetails.additionalInfo}
-          onChange={handleInputChange}
+          onChange={handleChange}
           className="w-full p-2 border rounded"
-        ></textarea>
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Banner</label>
-        <input type="file" onChange={handleBannerChange} className="w-full" />
-        {eventDetails.banner && <img src={eventDetails.banner} alt="Banner" className="mt-4 max-h-40" />}
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Ticketing</label>
+        />
+        <input
+          type="text"
+          name="banner"
+          placeholder="Banner URL (optional)"
+          value={eventDetails.banner}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+        />
         <select
           name="ticketing"
           value={eventDetails.ticketing}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded mb-2"
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+          required
         >
           <option value="Free">Free</option>
           <option value="Ticketed">Ticketed</option>
@@ -184,20 +154,20 @@ const CreateEvent: React.FC = () => {
           <input
             type="number"
             name="ticketPrice"
+            placeholder="Ticket Price"
             value={eventDetails.ticketPrice}
-            onChange={handleInputChange}
+            onChange={handleChange}
             className="w-full p-2 border rounded"
-            placeholder="Enter ticket price"
+            required
           />
         )}
-      </div>
-
-      <button
-        onClick={handleSubmit}
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-      >
-        Create Event
-      </button>
+        <button
+          type="submit"
+          className="w-full bg-purple-600 text-white p-2 rounded hover:bg-purple-700 transition"
+        >
+          Create Event
+        </button>
+      </form>
     </div>
   );
 };

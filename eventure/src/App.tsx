@@ -6,7 +6,7 @@ import CreateEvent from './pages/Cevent';
 import { Landing } from './pages/Landing';
 import Navbar from './components/common/Navbar';
 import EventReview from './components/event/Eventreview';
-
+import EventP from './pages/EventP';
 Modal.setAppElement('#root');
 
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
@@ -71,6 +71,7 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/events" element={<EventP />} />
       </Routes>
     </Router>
   );
