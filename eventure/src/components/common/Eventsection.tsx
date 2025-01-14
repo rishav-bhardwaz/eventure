@@ -91,6 +91,6 @@ const EventsSection: React.FC = () => {
       )}
     </section>
   );
-};
+  };
 
 export default EventsSection;
