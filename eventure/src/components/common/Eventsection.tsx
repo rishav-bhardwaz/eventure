@@ -15,6 +15,11 @@ const EventsSection: React.FC = () => {
     { label: 'Free', value: 'free' },
   ];
 
+  const handleFavoriteToggle = (eventId: string) => {
+    // Handle logic for toggling favorite status
+    console.log(`Toggling favorite for event: ${eventId}`);
+  };
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -81,7 +86,8 @@ const EventsSection: React.FC = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredEvents.map((event) => (
-          <EventCard key={event.id} event={event} />
+          <EventCard key={event.id} event={event} 
+          onFavoriteToggle={() => handleFavoriteToggle(event.id)}/>
         ))}
       </div>
       {filteredEvents.length === 0 && (
